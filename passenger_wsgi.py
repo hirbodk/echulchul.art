@@ -3,10 +3,8 @@ import os
 import traceback
 
 try:
-    venv_path = '/home/echumggg/echulchul.art/venv/lib64/python3.12/site-packages'
-    venv_path2 = '/home/echumggg/echulchul.art/venv/lib/python3.12/site-packages'
+    venv_path = '/home/echumggg/virtualenv/echulchul.art/3.12/lib/python3.12/site-packages'
     sys.path.insert(0, venv_path)
-    sys.path.insert(0, venv_path2)
     sys.path.insert(0, '/home/echumggg/echulchul.art')
 
     import pymysql
