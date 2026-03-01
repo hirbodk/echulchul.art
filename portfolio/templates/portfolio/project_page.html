@@ -1,0 +1,39 @@
+<!-- ===== project_page.html ===== -->
+{% extends "portfolio/base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% block content %}
+<div class="page-header">
+    <span class="page-label">Project</span>
+    <h1>{{ page.title }}</h1>
+</div>
+
+{% if page.description %}
+<div class="project-description rich-text">{{ page.description|richtext }}</div>
+{% endif %}
+
+{% if page.people.all %}
+<h3>People</h3>
+<div class="project-people">
+    {% for person in page.people.all %}
+    <a href="{{ person.url }}">{{ person.title }}</a>
+    {% endfor %}
+</div>
+{% endif %}
+
+{% if page.get_children.live %}
+<h3>Art Pieces</h3>
+<div class="pieces-grid">
+    {% for piece in page.get_children.live %}
+    <div class="piece-card">
+        <a href="{{ piece.url }}">
+            {% if piece.specific.thumbnail %}
+                {% image piece.specific.thumbnail width-600 as thumb %}
+                <img src="{{ thumb.url }}" alt="{{ piece.title }}">
+            {% endif %}
+            <p>{{ piece.title }}</p>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

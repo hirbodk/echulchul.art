@@ -1,0 +1,18 @@
+<!-- ===== project_index_page.html ===== -->
+{% extends "portfolio/base.html" %}
+{% block content %}
+<div class="page-header">
+    <span class="page-label">Work</span>
+    <h1>{{ page.title }}</h1>
+</div>
+<div class="project-list">
+    {% for project in page.get_children.live %}
+    <div class="project-list-item">
+        <a href="{{ project.url }}">{{ project.title }}</a>
+        <span class="meta">
+            {{ project.specific.people.count }} artist{% if project.specific.people.count != 1 %}s{% endif %}
+        </span>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

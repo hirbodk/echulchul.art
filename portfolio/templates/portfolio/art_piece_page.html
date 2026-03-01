@@ -1,0 +1,51 @@
+<!-- ===== art_piece_page.html ===== -->
+{% extends "portfolio/base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% block content %}
+<div class="page-header">
+    <span class="page-label"><a href="{{ page.get_parent.url }}">{{ page.get_parent.title }}</a></span>
+    <h1>{{ page.title }}</h1>
+</div>
+
+{% if page.description %}
+<div class="rich-text" style="max-width:65ch; margin-bottom:2.5rem;">{{ page.description|richtext }}</div>
+{% endif %}
+
+<div class="art-piece-body">
+    {% for block in page.body %}
+
+        {% if block.block_type == 'image' %}
+        <div class="block-image">
+            {% image block.value width-1400 as img %}
+            {% image block.value width-1400 as full %}
+            <a href="{{ full.url }}" class="glightbox">
+                <img src="{{ img.url }}" alt="{{ page.title }}">
+            </a>
+        </div>
+
+        {% elif block.block_type == 'text' %}
+        <div class="block-text rich-text">{{ block.value|richtext }}</div>
+
+        {% elif block.block_type == 'soundcloud' %}
+        <div class="block-soundcloud">
+            <iframe height="166" scrolling="no" frameborder="no"
+                src="https://w.soundcloud.com/player/?url={{ block.value }}&color=%23c8b89a&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false">
+            </iframe>
+        </div>
+
+        {% elif block.block_type == 'audio' %}
+        <div class="block-audio">
+            <p>{{ block.value.title }}</p>
+            <audio controls>
+                <source src="{{ block.value.audio_file }}">
+            </audio>
+        </div>
+
+        {% elif block.block_type == 'embed' %}
+        <div class="block-embed">{{ block.value }}</div>
+
+        {% endif %}
+
+    {% endfor %}
+</div>
+{% endblock %}

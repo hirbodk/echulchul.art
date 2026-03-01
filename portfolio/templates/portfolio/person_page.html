@@ -1,0 +1,19 @@
+<!-- ===== person_page.html ===== -->
+{% extends "portfolio/base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% block content %}
+<section class="person">
+    {% if page.photo %}
+    <div class="person-image">
+        {% image page.photo width-600 as img %}
+        <img src="{{ img.url }}" alt="{{ page.title }}">
+    </div>
+    {% endif %}
+    <div class="person-bio">
+        <span class="page-label">Person</span>
+        <h1>{{ page.title }}</h1>
+        <span class="role">{{ page.role }}</span>
+        <div class="rich-text">{{ page.bio|richtext }}</div>
+    </div>
+</section>
+{% endblock %}

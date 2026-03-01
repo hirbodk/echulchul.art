@@ -1,0 +1,23 @@
+<!-- ===== people_index_page.html ===== -->
+{% extends "portfolio/base.html" %}
+{% load wagtailimages_tags %}
+{% block content %}
+<div class="page-header">
+    <span class="page-label">Collective</span>
+    <h1>{{ page.title }}</h1>
+</div>
+<div class="people-grid">
+    {% for person in page.get_children.live %}
+    <a href="{{ person.url }}">
+        <div class="person-card">
+            {% if person.specific.photo %}
+                {% image person.specific.photo width-400 as img %}
+                <img src="{{ img.url }}" alt="{{ person.title }}">
+            {% endif %}
+            <h2>{{ person.title }}</h2>
+            <span class="role">{{ person.specific.role }}</span>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}

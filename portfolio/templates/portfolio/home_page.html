@@ -1,0 +1,13 @@
+{% extends "portfolio/base.html" %}
+{% load wagtailimages_tags %}
+
+{% block content %}
+<section class="home">
+    <h1>{{ page.title }}</h1>
+    <div class="home-links">
+        <a href="/projects/">Projects</a>
+        <a href="/people/">People</a>
+        <a href="/about/">About</a>
+    </div>
+</section>
+{% endblock %}

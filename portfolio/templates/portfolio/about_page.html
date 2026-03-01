@@ -1,0 +1,18 @@
+<!-- ===== about_page.html ===== -->
+{% extends "portfolio/base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% block content %}
+<section class="about">
+    <div class="about-text">
+        <span class="page-label">About</span>
+        <h1>{{ page.title }}</h1>
+        <div class="rich-text">{{ page.body|richtext }}</div>
+    </div>
+    {% if page.photo %}
+    <div class="about-image">
+        {% image page.photo width-600 as img %}
+        <img src="{{ img.url }}" alt="{{ page.title }}">
+    </div>
+    {% endif %}
+</section>
+{% endblock %}
