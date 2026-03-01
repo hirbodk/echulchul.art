@@ -1,5 +1,14 @@
 import pymysql
+pymysql.version_info = (2, 2, 1, "final", 0)
 pymysql.install_as_MySQLdb()
+
+from .base import *
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# rest of your settings...
 
 from .base import *
 import os
