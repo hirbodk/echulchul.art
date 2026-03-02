@@ -37,3 +37,22 @@ STATIC_ROOT = '/home/echumggg/test.echulchul.art/static/'
 MEDIA_ROOT = '/home/echumggg/test.echulchul.art/media/'
 MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': '/home/echumggg/echulchul.art/django_error.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    },
+}
