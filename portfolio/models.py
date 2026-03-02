@@ -29,6 +29,14 @@ class PersonPage(Page):
 
     parent_page_types = ['portfolio.PeopleIndexPage']
 
+    def get_context(self, request):
+        context = super().get_context(request)
+        from .models import ProjectPage
+        context['projects'] = ProjectPage.objects.filter(
+            people=self
+        ).live().public()
+        return context
+
 
 # -----------------------------------------------
 # ART PIECE

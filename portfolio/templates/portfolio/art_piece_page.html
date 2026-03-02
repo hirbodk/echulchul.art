@@ -17,8 +17,7 @@
         {% if block.block_type == 'image' %}
         <div class="block-image">
             {% image block.value width-1400 as img %}
-            {% image block.value width-1400 as full %}
-            <a href="{{ full.url }}" class="glightbox">
+            <a href="{{ img.url }}" class="glightbox">
                 <img src="{{ img.url }}" alt="{{ page.title }}">
             </a>
         </div>
