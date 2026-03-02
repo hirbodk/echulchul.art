@@ -1,10 +1,12 @@
-<!-- ===== home_page.html ===== -->
 {% extends "portfolio/base.html" %}
 {% block content %}
 <section class="home">
-    <h1>Echulchul<br><em>Art Collective</em></h1>
+    <h1>{{ page.title }}<br><em>{{ page.tagline }}</em></h1>
+    {% if page.intro %}
+    <div class="home-intro">{{ page.intro }}</div>
+    {% endif %}
     <div class="home-links">
-        <a href="/projects/">Projects</a>
+        <a href="/collections/">Collections</a>
         <a href="/people/">People</a>
         <a href="/about/">About</a>
     </div>
