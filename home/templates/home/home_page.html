@@ -1,14 +1,15 @@
 {% extends "portfolio/base.html" %}
+{% load wagtailcore_tags %}
 {% block content %}
 <section class="home">
     <h1>{{ page.title }}<br><em>{{ page.tagline }}</em></h1>
     {% if page.intro %}
-    <div class="home-intro">{{ page.intro }}</div>
+    <div class="home-intro rich-text">{{ page.intro|richtext }}</div>
     {% endif %}
     <div class="home-links">
-        <a href="/collections/">Collections</a>
-        <a href="/people/">People</a>
-        <a href="/about/">About</a>
+        {% for link in page.links.all %}
+        <a href="{{ link.url }}">{{ link.label }}</a>
+        {% endfor %}
     </div>
 </section>
 {% endblock %}
