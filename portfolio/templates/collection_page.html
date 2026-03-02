@@ -1,0 +1,61 @@
+{% extends "portfolio/base.html" %}
+{% load wagtailimages_tags wagtailcore_tags %}
+
+{% block content %}
+<div class="page-header">
+    <span class="page-label">Collection</span>
+    <h1>{{ page.title }}</h1>
+    {% if page.people.all %}
+    <div class="collection-artists">
+        {% for person in page.people.all %}
+        <a href="{{ person.url }}">{{ person.title }}</a>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+
+{% if page.description %}
+<div class="rich-text project-description">{{ page.description|richtext }}</div>
+{% endif %}
+
+<div class="projects-in-collection">
+    {% for project in projects %}
+    <div class="project-row">
+        <div class="project-row-header">
+            <a href="{{ project.url }}"><h2>{{ project.title }}</h2></a>
+            {% if project.people.all %}
+            <div class="project-people">
+                {% for person in project.people.all %}
+                <a href="{{ person.url }}">{{ person.title }}</a>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        <div class="project-thumbs">
+            {% for piece in project.get_children.live.specific %}
+                {% if forloop.counter <= 4 %}
+                <a href="{{ piece.url }}" class="piece-thumb">
+                    {% if piece.thumbnail %}
+                        {% image piece.thumbnail width-400 as thumb %}
+                        <img src="{{ thumb.url }}" alt="{{ piece.title }}">
+                    {% else %}
+                        {% with excerpt=piece.get_first_text_excerpt %}
+                        {% if excerpt %}
+                        <div class="text-thumb">
+                            <p>{{ excerpt }}</p>
+                        </div>
+                        {% else %}
+                        <div class="text-thumb">
+                            <p>{{ piece.title }}</p>
+                        </div>
+                        {% endif %}
+                        {% endwith %}
+                    {% endif %}
+                </a>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

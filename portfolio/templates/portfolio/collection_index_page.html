@@ -1,0 +1,22 @@
+{% extends "portfolio/base.html" %}
+{% load wagtailimages_tags %}
+
+{% block content %}
+<div class="page-header">
+    <span class="page-label">All Collections</span>
+    <h1>{{ page.title }}</h1>
+</div>
+
+<div class="collection-list">
+    {% for collection in page.get_children.live %}
+    <div class="collection-list-item">
+        <a href="{{ collection.url }}">{{ collection.title }}</a>
+        <div class="collection-people">
+            {% for person in collection.specific.people.all %}
+            <span>{{ person.title }}</span>
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

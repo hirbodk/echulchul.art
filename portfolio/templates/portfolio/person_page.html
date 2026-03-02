@@ -14,15 +14,50 @@
         <h1>{{ page.title }}</h1>
         <span class="role">{{ page.role }}</span>
         <div class="rich-text">{{ page.bio|richtext }}</div>
-
-        {% if projects %}
-        <h3>Projects</h3>
-        <div class="project-people">
-            {% for project in projects %}
-            <a href="{{ project.url }}">{{ project.title }}</a>
-            {% endfor %}
-        </div>
-        {% endif %}
     </div>
 </section>
+
+{% if collections %}
+<section class="person-collections">
+    <h3>Collections</h3>
+    {% for collection in collections %}
+    <div class="collection-row">
+        <div class="collection-row-header">
+            <a href="{{ collection.url }}"><h2>{{ collection.title }}</h2></a>
+        </div>
+        <div class="project-thumbs">
+            {% for project in collection.get_children.live.specific %}
+                {% if forloop.counter <= 4 %}
+                    {% for piece in project.get_children.live.specific %}
+                        {% if forloop.counter == 1 %}
+                        <a href="{{ project.url }}" class="piece-thumb">
+                            {% if piece.thumbnail %}
+                                {% image piece.thumbnail width-400 as thumb %}
+                                <img src="{{ thumb.url }}" alt="{{ project.title }}">
+                            {% else %}
+                            <div class="text-thumb">
+                                <p>{{ project.title }}</p>
+                            </div>
+                            {% endif %}
+                        </a>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+</section>
+{% endif %}
+
+{% if projects %}
+<section class="person-projects">
+    <h3>Also collaborates on</h3>
+    <div class="project-people">
+        {% for project in projects %}
+        <a href="{{ project.url }}">{{ project.title }}</a>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
 {% endblock %}

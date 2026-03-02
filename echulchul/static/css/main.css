@@ -625,3 +625,189 @@ iframe {
     grid-template-columns: 1fr;
   }
 }
+
+/* ══════════════════════════════════════
+   COLLECTION INDEX
+══════════════════════════════════════ */
+
+.collection-list {
+    margin-top: 1rem;
+}
+
+.collection-list-item {
+    border-top: 1px solid var(--border);
+    padding: 1.8rem 0;
+}
+
+.collection-list-item:last-child {
+    border-bottom: 1px solid var(--border);
+}
+
+.collection-list-item a {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-style: italic;
+    text-decoration: none;
+    color: var(--fg);
+    transition: color 0.2s;
+}
+
+.collection-list-item a:hover {
+    color: var(--accent);
+}
+
+.collection-people {
+    margin-top: 0.5rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.collection-people span {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+}
+
+/* ══════════════════════════════════════
+   COLLECTION PAGE / PROJECT ROWS
+══════════════════════════════════════ */
+
+.collection-artists {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
+.collection-artists a {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.collection-artists a:hover {
+    color: var(--accent);
+}
+
+.projects-in-collection {
+    margin-top: 3rem;
+}
+
+.project-row {
+    margin-bottom: 4rem;
+    border-top: 1px solid var(--border);
+    padding-top: 2rem;
+}
+
+.project-row-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.project-row-header h2 {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-style: italic;
+}
+
+.project-row-header a {
+    text-decoration: none;
+    color: var(--fg);
+    transition: color 0.2s;
+}
+
+.project-row-header a:hover {
+    color: var(--accent);
+}
+
+.project-thumbs {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.piece-thumb {
+    width: calc(25% - 0.75rem);
+    min-width: 150px;
+    text-decoration: none;
+    display: block;
+    flex: 1;
+}
+
+.piece-thumb img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    filter: grayscale(20%);
+    transition: filter 0.4s;
+}
+
+.piece-thumb:hover img {
+    filter: grayscale(0%);
+}
+
+.text-thumb {
+    width: 100%;
+    aspect-ratio: 4/3;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    padding: 1rem;
+    display: flex;
+    align-items: flex-start;
+    overflow: hidden;
+}
+
+.text-thumb p {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--fg-dim);
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* ══════════════════════════════════════
+   PERSON COLLECTIONS SECTION
+══════════════════════════════════════ */
+
+.person-collections,
+.person-projects {
+    margin-top: 4rem;
+    border-top: 1px solid var(--border);
+    padding-top: 2rem;
+}
+
+.collection-row {
+    margin-bottom: 3rem;
+}
+
+.collection-row-header a {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-style: italic;
+    text-decoration: none;
+    color: var(--fg);
+    transition: color 0.2s;
+}
+
+.collection-row-header a:hover {
+    color: var(--accent);
+}
+
+.collection-row-header {
+    margin-bottom: 1rem;
+}
