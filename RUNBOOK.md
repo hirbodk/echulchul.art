@@ -246,6 +246,55 @@ sudo systemctl restart echulchul
 ```bash
 # Create the superuser on the production DB
 python manage.py createsuperuser --settings=echulchul.settings.production
+# Then run setup_pages to create /artists/ and /works/ index pages
+python manage.py setup_pages --settings=echulchul.settings.production
 ```
 
 Use a strong password here — this is the real admin account.
+
+---
+
+### Reset the database (wipe everything and start fresh)
+
+The server uses **SQLite** — delete the file and re-migrate.
+
+```bash
+# 1. SSH in
+ssh echumggg@test.echulchul.art
+cd ~/echulchul.art   # adjust to your actual repo path
+
+# 2. Delete the SQLite file
+rm db.sqlite3
+
+# 3. Re-run migrations
+source .venv/bin/activate
+python manage.py migrate --settings=echulchul.settings.production
+
+# 4. Create a new superuser
+python manage.py createsuperuser --settings=echulchul.settings.production
+
+# 5. Set up the page tree
+python manage.py setup_pages --settings=echulchul.settings.production
+```
+
+> **Note:** Media files (uploaded images) are NOT deleted by this — remove manually if needed:
+> ```bash
+> rm -rf ~/echulchul.art/media/*
+> ```
+
+### Fix: migration conflict / table already exists
+
+If `migrate` fails with "table already exists" or "conflicting migrations":
+
+```bash
+# Step 1: merge conflicting migrations (run locally, commit, push)
+python manage.py makemigrations --merge --no-input
+git add home/migrations/
+git commit -m "merge home migration conflict"
+git push
+
+# Step 2: on the server, pull and fake-apply the already-existing tables
+git pull
+python manage.py migrate home --fake-initial --settings=echulchul.settings.production
+python manage.py migrate --settings=echulchul.settings.production
+```
