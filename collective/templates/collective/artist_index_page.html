@@ -1,0 +1,24 @@
+{% extends "collective/base.html" %}
+{% load wagtailimages_tags %}
+
+{% block content %}
+<div class="page-header">
+    <span class="page-label">Collective</span>
+    <h1>{{ page.title }}</h1>
+</div>
+
+<div class="people-grid">
+    {% for artist in artists %}
+    <a href="{{ artist.url }}">
+        <div class="person-card">
+            {% if artist.photo %}
+                {% image artist.photo width-400 as img %}
+                <img src="{{ img.url }}" alt="{{ artist.title }}">
+            {% endif %}
+            <h2>{{ artist.title }}</h2>
+            {% if artist.role %}<span class="role">{{ artist.role }}</span>{% endif %}
+        </div>
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}

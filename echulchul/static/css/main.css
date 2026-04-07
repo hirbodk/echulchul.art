@@ -811,3 +811,61 @@ iframe {
 .collection-row-header {
     margin-bottom: 1rem;
 }
+
+/* ══════════════════════════════════════
+   WORKS INDEX (collective app)
+══════════════════════════════════════ */
+
+.works-layout {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+.works-sidebar {
+    position: sticky;
+    top: 7rem;
+}
+
+.sidebar-section {
+    margin-bottom: 2rem;
+}
+
+.sidebar-chip {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--fg-dim);
+    text-decoration: none;
+    padding: 0.3rem 0;
+    border-bottom: 1px solid transparent;
+    transition: color 0.2s;
+}
+
+.sidebar-chip:hover,
+.sidebar-chip.active {
+    color: var(--accent);
+}
+
+.chip-count {
+    color: var(--accent-2);
+    margin-left: 0.4rem;
+}
+
+@media (max-width: 768px) {
+    .works-layout {
+        grid-template-columns: 1fr;
+    }
+    .works-sidebar {
+        position: static;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0 2rem;
+    }
+    .sidebar-section {
+        margin-bottom: 1rem;
+    }
+}

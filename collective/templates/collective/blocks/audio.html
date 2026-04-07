@@ -1,0 +1,5 @@
+<div class="block-audio">
+    {% if value.title %}<p>{{ value.title }}</p>{% endif %}
+    <audio controls><source src="{{ value.file }}"></audio>
+    {% if value.caption %}<p style="font-size:0.85em;color:var(--fg-dim);">{{ value.caption }}</p>{% endif %}
+</div>

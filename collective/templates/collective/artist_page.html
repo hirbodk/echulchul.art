@@ -1,0 +1,55 @@
+{% extends "collective/base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+<section class="person">
+    {% if page.photo %}
+    <div class="person-image">
+        {% image page.photo width-600 as img %}
+        <img src="{{ img.url }}" alt="{{ page.title }}">
+    </div>
+    {% endif %}
+    <div class="person-bio">
+        <span class="page-label">Artist</span>
+        <h1>{{ page.title }}</h1>
+        {% if page.role %}<span class="role">{{ page.role }}</span>{% endif %}
+        {% if page.bio %}<div class="rich-text">{{ page.bio|richtext }}</div>{% endif %}
+        {% if page.website or page.email %}
+        <div class="project-people" style="margin-top:1.5rem;">
+            {% if page.website %}<a href="{{ page.website }}" target="_blank" rel="noopener">website</a>{% endif %}
+            {% if page.email %}<a href="mailto:{{ page.email }}">{{ page.email }}</a>{% endif %}
+        </div>
+        {% endif %}
+        {% if page.links.all %}
+        <div class="home-links" style="margin-top:2rem;">
+            {% for link in page.links.all %}
+            <a href="{{ link.url }}">{{ link.label }}</a>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+{% if artworks %}
+<section style="margin-top:4rem; border-top:1px solid var(--border); padding-top:2rem;">
+    <h3>Works</h3>
+    <div class="pieces-grid">
+        {% for artwork in artworks %}
+        <div class="piece-card">
+            <a href="{{ artwork.url }}">
+                {% with img=artwork.get_first_image %}
+                {% if img %}
+                    {% image img width-600 as thumb %}
+                    <img src="{{ thumb.url }}" alt="{{ artwork.title }}">
+                {% else %}
+                    <div class="text-thumb"><p>{{ artwork.get_text_excerpt }}</p></div>
+                {% endif %}
+                {% endwith %}
+                <p>{{ artwork.title }}</p>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+{% endblock %}

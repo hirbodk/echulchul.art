@@ -1,0 +1,5 @@
+{% load wagtailcore_tags %}
+<blockquote class="block-text rich-text" style="border-left:2px solid var(--accent-2);padding-left:1.5rem;margin:2rem 0;">
+    {% if value.heading %}<p style="font-family:var(--font-mono);font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--fg-dim);margin-bottom:0.75rem;">{{ value.heading }}</p>{% endif %}
+    {{ value.body|richtext }}
+</blockquote>

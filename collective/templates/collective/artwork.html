@@ -1,0 +1,83 @@
+{% extends "collective/base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+<div class="page-header">
+    <span class="page-label"><a href="/works/">Works</a></span>
+    <h1>{{ page.title }}</h1>
+    {% if page.artists.all %}
+    <div class="collection-artists">
+        {% for artist in page.artists.all %}
+        <a href="{{ artist.url }}">{{ artist.title }}</a>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% if page.tags.all %}
+    <div class="collection-artists" style="margin-top:0.5rem;">
+        {% for tag in page.tags.all %}
+        <a href="/works/?tag={{ tag.name }}">{{ tag.name }}</a>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+
+<div class="art-piece-body">
+    {% for block in page.body %}
+
+        {% if block.block_type == 'image' %}
+        <div class="block-image">
+            {% image block.value width-1400 as img %}
+            <a href="{{ img.url }}" class="glightbox">
+                <img src="{{ img.url }}" alt="{{ page.title }}">
+            </a>
+        </div>
+
+        {% elif block.block_type == 'rich_text' %}
+        <div class="block-text rich-text">{{ block.value|richtext }}</div>
+
+        {% elif block.block_type == 'audio' %}
+        <div class="block-audio">
+            {% if block.value.title %}<p>{{ block.value.title }}</p>{% endif %}
+            <audio controls><source src="{{ block.value.file }}"></audio>
+            {% if block.value.caption %}<p>{{ block.value.caption }}</p>{% endif %}
+        </div>
+
+        {% elif block.block_type == 'video_embed' %}
+        <div class="block-embed">{{ block.value }}</div>
+
+        {% elif block.block_type == 'external_link' %}
+        <div class="block-text">
+            <a href="{{ block.value.url }}" target="_blank" rel="noopener">{{ block.value.text }}</a>
+            {% if block.value.note %}<span style="color:var(--fg-dim); font-size:0.85em;"> — {{ block.value.note }}</span>{% endif %}
+        </div>
+
+        {% elif block.block_type == 'statement' %}
+        <blockquote class="block-text rich-text" style="border-left:2px solid var(--accent-2); padding-left:1.5rem; margin:2rem 0;">
+            {% if block.value.heading %}<p style="font-family:var(--font-mono);font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--fg-dim);margin-bottom:0.75rem;">{{ block.value.heading }}</p>{% endif %}
+            {{ block.value.body|richtext }}
+        </blockquote>
+
+        {% endif %}
+    {% endfor %}
+</div>
+
+{% if page.attributes.all %}
+<div style="margin-top:3rem; border-top:1px solid var(--border); padding-top:2rem;">
+    <h3>Details</h3>
+    <dl style="display:grid; grid-template-columns:max-content 1fr; gap:0.5rem 2rem;">
+        {% for attr in page.attributes.all %}
+        <dt style="font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--fg-dim);">{{ attr.key.name }}</dt>
+        <dd>
+            {% if attr.key.vtype == 'artwork' and attr.val_artwork %}
+                <a href="{{ attr.val_artwork.url }}">{{ attr.val_artwork.title }}</a>
+            {% elif attr.key.vtype == 'boolean' %}
+                {{ attr.val_boolean|yesno:"yes,no" }}
+            {% else %}
+                {{ attr.value }}
+            {% endif %}
+        </dd>
+        {% endfor %}
+    </dl>
+</div>
+{% endif %}
+{% endblock %}

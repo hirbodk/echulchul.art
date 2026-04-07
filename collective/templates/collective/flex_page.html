@@ -1,0 +1,35 @@
+{% extends "collective/base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+<div class="page-header">
+    <h1>{{ page.title }}</h1>
+</div>
+
+<div class="art-piece-body">
+    {% for block in page.body %}
+
+        {% if block.block_type == 'rich_text' %}
+        <div class="block-text rich-text">{{ block.value|richtext }}</div>
+
+        {% elif block.block_type == 'image' %}
+        <div class="block-image">
+            {% image block.value width-1400 as img %}
+            <a href="{{ img.url }}" class="glightbox">
+                <img src="{{ img.url }}" alt="">
+            </a>
+        </div>
+
+        {% elif block.block_type == 'video_embed' %}
+        <div class="block-embed">{{ block.value }}</div>
+
+        {% elif block.block_type == 'external_link' %}
+        <div class="block-text">
+            <a href="{{ block.value.url }}" target="_blank" rel="noopener">{{ block.value.text }}</a>
+            {% if block.value.note %}<span style="color:var(--fg-dim);font-size:0.85em;"> — {{ block.value.note }}</span>{% endif %}
+        </div>
+
+        {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}

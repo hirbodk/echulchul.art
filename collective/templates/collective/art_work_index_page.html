@@ -1,0 +1,71 @@
+{% extends "collective/base.html" %}
+{% load wagtailimages_tags %}
+
+{% block content %}
+<div class="page-header">
+    <span class="page-label">All Works</span>
+    <h1>{{ page.title }}</h1>
+</div>
+
+<div class="works-layout">
+    <aside class="works-sidebar">
+        {% if all_artists %}
+        <div class="sidebar-section">
+            <h3>Artists</h3>
+            {% for artist in all_artists %}
+            <a href="?artist={{ artist.slug }}{% if active_tag %}&tag={{ active_tag }}{% endif %}"
+               class="sidebar-chip {% if active_artist == artist.slug %}active{% endif %}">
+                {{ artist.title }}
+            </a>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if all_tags %}
+        <div class="sidebar-section">
+            <h3>Tags</h3>
+            {% for tag in all_tags %}
+            <a href="?tag={{ tag.name }}{% if active_artist %}&artist={{ active_artist }}{% endif %}"
+               class="sidebar-chip {% if active_tag == tag.name %}active{% endif %}">
+                {{ tag.name }}
+                <span class="chip-count">{{ tag.count }}</span>
+            </a>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if active_tag or active_artist %}
+        <div class="sidebar-section">
+            <a href="?" class="sidebar-chip">✕ clear filters</a>
+        </div>
+        {% endif %}
+    </aside>
+
+    <div class="pieces-grid">
+        {% for artwork in artworks %}
+        <div class="piece-card">
+            <a href="{{ artwork.url }}">
+                {% with img=artwork.get_first_image %}
+                {% if img %}
+                    {% image img width-600 as thumb %}
+                    <img src="{{ thumb.url }}" alt="{{ artwork.title }}">
+                {% else %}
+                    <div class="text-thumb"><p>{{ artwork.get_text_excerpt }}</p></div>
+                {% endif %}
+                {% endwith %}
+                <p>{{ artwork.title }}</p>
+            </a>
+            {% if artwork.artists.all %}
+            <div class="project-people">
+                {% for artist in artwork.artists.all %}
+                <a href="{{ artist.url }}">{{ artist.title }}</a>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        {% empty %}
+        <p style="color:var(--fg-dim); grid-column:1/-1;">No works found.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
