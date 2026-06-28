@@ -18,7 +18,7 @@ load_dotenv()
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['test.echulchul.art']
+ALLOWED_HOSTS = ['echulchul.art', 'www.echulchul.art']
 
 DATABASES = {
     'default': {
@@ -33,8 +33,8 @@ DATABASES = {
 
 SECRET_KEY = os.getenv('SECRET_KEY')
 
-STATIC_ROOT = '/home/echumggg/test.echulchul.art/static/'
-MEDIA_ROOT = '/home/echumggg/test.echulchul.art/media/'
+STATIC_ROOT = '/home/echumggg/echulchul.art/static/'
+MEDIA_ROOT = '/home/echumggg/echulchul.art/media/'
 MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
 
